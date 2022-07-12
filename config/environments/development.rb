@@ -1,4 +1,4 @@
-require "active_support/core_ext/integer/time"
+require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -19,13 +19,13 @@ Rails.application.configure do
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
-  if Rails.root.join("tmp/caching-dev.txt").exist?
+  if Rails.root.join('tmp/caching-dev.txt').exist?
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      "Cache-Control" => "public, max-age=#{2.days.to_i}"
+      'Cache-Control' => "public, max-age=#{2.days.to_i}"
     }
   else
     config.action_controller.perform_caching = false
@@ -67,4 +67,33 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  # Define default url options for development (devise)
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # Bullet gem configuration
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+    Bullet.add_footer = true
+    Bullet.skip_html_injection = false
+    Bullet.stacktrace_includes = %w[your_gem your_middleware]
+    Bullet.stacktrace_excludes = ['their_gem', 'their_middleware', ['my_file.rb', 'my_method'],
+                                  ['my_file.rb', 16..20]]
+  end
+
+  # Rack-livereload gem configuration
+  # MyApp::Application.configure do
+  # Add Rack::LiveReload to the bottom of the middleware stack with the default options:
+  # config.middleware.insert_after ActionDispatch::Static, Rack::LiveReload
+
+  # or, if you're using better_errors:
+  # config.middleware.insert_before Rack::Lock, Rack::LiveReload
+
+  # or, if you're using better_errors with rails 6.
+  # config.middleware.insert_before Rack::Runtime, Rack::LiveReload
+  # end
+  config.middleware.insert_before Rack::Runtime, Rack::LiveReload
 end
