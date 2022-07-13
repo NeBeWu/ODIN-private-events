@@ -4,8 +4,8 @@
 <p><%= @user.website %></p>
 <% @events.each do |event| %>
   <p><%= event.title %></p>
-  <p><%= event.creator %></p>
+  <p><%= event.description %></p>
   <p><%= event.date %></p>
   <p><%= event.location %></p>
-  <p><%= event.price %></p>
+  <p><%= number_with_precision event.price, precision: 2 %></p>
 <% end %>

@@ -27,7 +27,7 @@
   </div>
   <div class="field">
     <%= form.label :price %><br>
-    <%= form.text_field :price, required: true, placeholder: 'Price', pattern: '\d?\d?\d?\d.\d\d', maxlenght: 7 %>
+    <%= form.number_field :price, required: true, placeholder: 'Price', step: 0.01 %>
   </div>
   <div class="field">
     <%= form.submit 'Create Event' %>
