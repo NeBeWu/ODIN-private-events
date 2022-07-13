@@ -1,5 +1,6 @@
 <h1>Event</h1>
-<p><%= @event.creator.name %></p>
+<%= link_to "All events", events_path %>
+<p><%= link_to "#{@event.creator.name}", user_path(@event.creator.id) %></p>
 <p><%= @event.title %></p>
 <p><%= @event.description %></p>
 <p><%= @event.date %></p>

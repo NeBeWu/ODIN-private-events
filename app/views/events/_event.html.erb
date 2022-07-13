@@ -1,0 +1,5 @@
+<%= link_to "#{event.title}", event_path(event.id) %>
+<p><%= event.description %></p>
+<p><%= event.date %></p>
+<p><%= event.location %></p>
+<p><%= number_with_precision event.price, precision: 2 %></p>

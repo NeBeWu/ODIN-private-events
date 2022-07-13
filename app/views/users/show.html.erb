@@ -1,11 +1,5 @@
 <h1>User</h1>
-<p><%= @user.name %></p>
-<p><%= @user.description %></p>
-<p><%= @user.website %></p>
-<% @events.each do |event| %>
-  <p><%= event.title %></p>
-  <p><%= event.description %></p>
-  <p><%= event.date %></p>
-  <p><%= event.location %></p>
-  <p><%= number_with_precision event.price, precision: 2 %></p>
-<% end %>
+<h3>User profile</h3>
+<%= render 'profile' %>
+<h3>User events</h3>
+<%= render @events %>
