@@ -1,0 +1,11 @@
+<h1>User</h1>
+<p><%= @user.name %></p>
+<p><%= @user.description %></p>
+<p><%= @user.website %></p>
+<% @events.each do |event| %>
+  <p><%= event.title %></p>
+  <p><%= event.creator %></p>
+  <p><%= event.date %></p>
+  <p><%= event.location %></p>
+  <p><%= event.price %></p>
+<% end %>
