@@ -1,0 +1,27 @@
+<h1>Edit User</h1>
+<%= form_with(model: @user) do |form| %>
+  <% if @user.errors.any? %>
+    <div style="color: red">
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= form.label :name %><br>
+    <%= form.text_field :name, required: true, placeholder: 'Name', autofocus: true %>
+  </div>
+  <div class="field">
+    <%= form.label :description %><br>
+    <%= form.text_area :description, required: true, placeholder: 'Description' %>
+  </div>
+  <div class="field">
+    <%= form.label :website %><br>
+    <%= form.text_field :website, required: true, placeholder: 'Website' %>
+  </div>
+  <div class="field">
+    <%= form.submit 'Update profile' %>
+  </div>
+<% end %>

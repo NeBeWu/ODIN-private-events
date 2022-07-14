@@ -3,7 +3,19 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
 
   def show
-    @events = @user.events
+    @created_events = @user.created_events
+  end
+
+  def edit; end
+
+  def update
+    @user.assign_attributes(user_params)
+
+    if @user.save
+      redirect_to user_path(current_user.id), notice: 'Event was successfully created.'
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
