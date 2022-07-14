@@ -10,17 +10,18 @@
   </head>
   <body>
     <% if flash[:notice] %>
-      <div class="notification is-success">
-        <button class="delete"></button>
-        <p class="has-text-centered"><%= notice %></p>
+      <div>
+        <button></button>
+        <p><%= notice %></p>
       </div>
     <% end %>
     <% if flash[:alert] %>
-      <div class="notification is-danger">
-        <button class="delete"></button>
-        <p class="has-text-centered"><%= alert %></p>
+      <div>
+        <button></button>
+        <p><%= alert %></p>
       </div>
     <% end %>
+    <%= render 'layouts/navbar' %>
     <%= yield %>
   </body>
 </html>
