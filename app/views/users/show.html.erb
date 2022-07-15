@@ -1,9 +1,11 @@
 <h1>User</h1>
 <h3>User profile</h3>
 <%= render 'profile' %>
-<h3>User created events</h3>
-<%= render @created_events %>
+<h3>User upcoming created events</h3>
+<%= render @user.created_events.upcoming %>
+<h3>User previous created events</h3>
+<%= render @user.created_events.previous %>
 <h3>User upcoming attended events</h3>
-<%= render Event.joins(:attendances).where('attendances.attendee_id = ?', @user.id).where('events.date >= ?', Time.now) %>
+<%= render @user.attended_events.upcoming %>
 <h3>User previous attended events</h3>
-<%= render Event.joins(:attendances).where('attendances.attendee_id = ?', @user.id).where('events.date <= ?', Time.now) %>
+<%= render @user.attended_events.previous %>
