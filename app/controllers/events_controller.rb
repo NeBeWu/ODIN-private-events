@@ -9,11 +9,11 @@ class EventsController < ApplicationController
   def show; end
 
   def new
-    @new_event = current_user.events.build
+    @new_event = current_user.created_events.build
   end
 
   def create
-    @new_event = current_user.events.build(event_params)
+    @new_event = current_user.created_events.build(event_params)
 
     if @new_event.save
       redirect_back_or_to :root, notice: 'Event was successfully created.'
