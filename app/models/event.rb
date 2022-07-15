@@ -6,6 +6,6 @@ class Event < ApplicationRecord
 
   validates :price, numericality: { greater_than_or_equal_to: 0, less_than: 10_000 }
 
-  scope :previous, -> { where('events.date <= ?', Time.now) }
-  scope :upcoming, -> { where('events.date >= ?', Time.now) }
+  scope :previous, -> { where('date <= ?', Time.now).order(date: :desc) }
+  scope :upcoming, -> { where('date >= ?', Time.now).order(date: :asc) }
 end

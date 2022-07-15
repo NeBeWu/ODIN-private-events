@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[show subscribe unsubscribe]
+  before_action :set_event, except: %i[index new create]
   before_action :authenticate_user!, except: %i[index show]
+  before_action :authorize_user, only: %i[edit update destroy]
 
   def index
     @events = Event.all
@@ -16,33 +17,48 @@ class EventsController < ApplicationController
     @new_event = current_user.created_events.build(event_params)
 
     if @new_event.save
-      redirect_back_or_to :root, notice: 'Event was successfully created.'
+      redirect_to :root, notice: 'Event was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  def subscribe
-    if request.post?
-      @event.attendees << current_user
+  def edit; end
 
-      redirect_to event_path(@event.id), notice: 'Successfully subscribed to event.'
+  def update
+    @event.assign_attributes(event_params)
+
+    if @event.save
+      redirect_to event_path(@event.id), notice: 'Event was successfully updated.'
     else
-      render :show, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  def unsubscribe
-    if request.delete?
-      @event.attendees.delete current_user
+  def destroy
+    @event.destroy
 
-      redirect_to event_path(@event.id), notice: 'Successfully unsubscribed to event.'
-    else
-      render :show, status: :unprocessable_entity
-    end
+    redirect_to :root, notice: 'Event was successfully destroyed.'
+  end
+
+  def attend
+    @event.attendees << current_user
+
+    redirect_to event_path(@event.id), notice: 'Successfully subscribed to event.'
+  end
+
+  def absent
+    @event.attendees.delete current_user
+
+    redirect_to event_path(@event.id), notice: 'Successfully unsubscribed to event.'
   end
 
   private
+
+  # Redirects user in case it has not authorization to proceed
+  def authorize_user
+    redirect_to event_path(@event.id), alert: 'You are not allowed to do this.' unless @event.creator == current_user
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_event

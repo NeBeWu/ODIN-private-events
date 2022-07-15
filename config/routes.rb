@@ -12,8 +12,8 @@ Rails.application.routes.draw do
 
   resources :events do
     member do
-      post 'subscribe'
-      delete 'unsubscribe'
+      post 'attend'
+      delete 'absent'
     end
   end
 

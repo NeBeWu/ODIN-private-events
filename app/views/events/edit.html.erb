@@ -1,9 +1,9 @@
-<h1>New Event</h1>
-<%= form_with(model: @new_event) do |form| %>
-  <% if @new_event.errors.any? %>
+<h1>Edit event</h1>
+<%= form_with(model: @event) do |form| %>
+  <% if @event.errors.any? %>
     <div style="color: red">
       <ul>
-        <% @new_event.errors.full_messages.each do |message| %>
+        <% @event.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -30,6 +30,6 @@
     <%= form.number_field :price, required: true, placeholder: 'Price', step: 0.01 %>
   </div>
   <div class="field">
-    <%= form.submit 'Create event' %>
+    <%= form.submit 'Update event' %>
   </div>
 <% end %>

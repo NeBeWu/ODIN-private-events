@@ -1,18 +1,24 @@
 <h1>Event</h1>
+<% if @event.creator == current_user %>
+  <%= link_to 'Edit event', edit_event_path(@event.id) %>
+  <%= button_to 'Delete event', event_path(@event.id), method: 'delete' %>
+<% end %>
 <p>Creator: <%= link_to "#{@event.creator.name}", user_path(@event.creator.id) %></p>
 <p>Event: <%= @event.title %></p>
 <p>Description: <%= @event.description %></p>
 <p>Date: <%= @event.date %></p>
 <p>Location: <%= @event.location %></p>
 <p>Price: <%= number_with_precision @event.price, precision: 2 %></p>
-<% unless current_user&.attended_events&.exists?(@event.id) %>
-  <p>
-    <%= button_to 'Subscribe', subscribe_event_path(@event.id) %>
-  </p>
-<% else %>
-  <p>
-    <%= button_to 'Unsubscribe', unsubscribe_event_path(@event.id), method: 'delete' %>
-  </p>
+<% if user_signed_in? %>
+  <% unless current_user.attended_events.exists?(@event.id) %>
+    <p>
+      <%= button_to 'Attend', attend_event_path(@event.id) %>
+    </p>
+  <% else %>
+    <p>
+      <%= button_to 'Absent', absent_event_path(@event.id), method: 'delete' %>
+    </p>
+  <% end %>
 <% end %>
 <h3>Attendees</h3>
 <% @event.attendees.each do |attendee| %>
