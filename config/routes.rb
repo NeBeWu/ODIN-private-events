@@ -7,8 +7,15 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     # Redirects signing out users back to sign-in (necessary when deleting user)
-    get 'users', to: 'posts#index'
+    get 'users', to: 'events#index'
   end
 
-  resources :events, :users
+  resources :events do
+    member do
+      post 'subscribe'
+      delete 'unsubscribe'
+    end
+  end
+
+  resources :users
 end

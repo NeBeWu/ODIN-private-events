@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[show]
+  before_action :set_event, only: %i[show subscribe unsubscribe]
   before_action :authenticate_user!, except: %i[index show]
 
   def index
@@ -19,6 +19,26 @@ class EventsController < ApplicationController
       redirect_back_or_to :root, notice: 'Event was successfully created.'
     else
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def subscribe
+    if request.post?
+      @event.attendees << current_user
+
+      redirect_to event_path(@event.id), notice: 'Successfully subscribed to event.'
+    else
+      render :show, status: :unprocessable_entity
+    end
+  end
+
+  def unsubscribe
+    if request.delete?
+      @event.attendees.delete current_user
+
+      redirect_to event_path(@event.id), notice: 'Successfully unsubscribed to event.'
+    else
+      render :show, status: :unprocessable_entity
     end
   end
 
