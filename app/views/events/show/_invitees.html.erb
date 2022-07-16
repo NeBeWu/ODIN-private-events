@@ -1,0 +1,24 @@
+<% if @event.private && @event.creator == current_user %>
+  <%= form_with url: invite_event_path, method: :post do |form| %>
+    <div class="field">
+      <%= form.label :user_id, 'User id' %><br>
+      <%= form.number_field :user_id, required: true, min: 1, step: 1 %>
+    </div>
+    <div class="field">
+      <%= form.submit 'Invite user' %>
+    </div>
+  <% end %>
+  <%= form_with url: uninvite_event_path, method: :delete do |form| %>
+    <div class="field">
+      <%= form.label :user_id, 'User id' %><br>
+      <%= form.number_field :user_id, required: true, min: 1, step: 1 %>
+    </div>
+    <div class="field">
+      <%= form.submit 'Uninvite user' %>
+    </div>
+  <% end %>
+  <h3>Invitees</h3>
+  <% @event.invitees.each do |invitee| %>
+    <p><%= "#{invitee.name} (#{invitee.id})" %></p>
+  <% end %>
+<% end %>

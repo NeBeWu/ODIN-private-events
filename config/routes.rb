@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     member do
       post 'attend'
       delete 'absent'
+      post 'invite'
+      delete 'uninvite'
     end
   end
 

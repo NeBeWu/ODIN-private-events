@@ -9,18 +9,5 @@
 <p>Date: <%= @event.date %></p>
 <p>Location: <%= @event.location %></p>
 <p>Price: <%= number_with_precision @event.price, precision: 2 %></p>
-<% if user_signed_in? %>
-  <% unless current_user.attended_events.exists?(@event.id) %>
-    <p>
-      <%= button_to 'Attend', attend_event_path(@event.id) %>
-    </p>
-  <% else %>
-    <p>
-      <%= button_to 'Absent', absent_event_path(@event.id), method: 'delete' %>
-    </p>
-  <% end %>
-<% end %>
-<h3>Attendees</h3>
-<% @event.attendees.each do |attendee| %>
-  <p><%= attendee.name %></p>
-<% end %>
+<%= render 'events/show/attendees' %>
+<%= render 'events/show/invitees' %>

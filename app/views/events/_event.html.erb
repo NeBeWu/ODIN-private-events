@@ -1,4 +1,4 @@
-<p><%= link_to "#{event.title}", event_path(event.id) %></p>
+<p><%= link_to "#{event.title}", event_path(event.id) %><%= ' (Private)' if event.private %></p>
 <p><%= event.description %></p>
 <p><%= event.date %></p>
 <p><%= event.location %></p>

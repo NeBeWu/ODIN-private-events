@@ -30,6 +30,10 @@
     <%= form.number_field :price, required: true, placeholder: 'Price', step: 0.01 %>
   </div>
   <div class="field">
+    <%= form.label :private %><br>
+    <%= form.check_box :private %>
+  </div>
+  <div class="field">
     <%= form.submit 'Create event' %>
   </div>
 <% end %>
