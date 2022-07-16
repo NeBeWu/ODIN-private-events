@@ -5,7 +5,8 @@ class EventsController < ApplicationController
   before_action :authenticate_creator, only: %i[edit update destroy invite uninvite]
 
   def index
-    @events = Event.joins(:invitations).where('invitations.invitee_id = ?', current_user&.id).or(Event.public?)
+    @events = Event.left_outer_joins(:invitations).where('invitations.invitee_id = ?', current_user&.id)\
+                   .or(Event.public?)
   end
 
   def show; end
